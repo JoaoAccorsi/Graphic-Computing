@@ -12,3 +12,7 @@ This repository aims to share the projects developed under Graphic Processing Cl
 ## List 1
 
 The implementations together with the awnser to the exercices can be found in [./List1/answers.md](./List1/answers.md).
+
+## List 2
+
+The implementations together with the awnser to the exercices can be found in [./List2/answers.md](./List2/answers.md).
