@@ -39,7 +39,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 // Protótipos das funções
 int setupShader();
 int setupGeometry();
-int createCircle(int nPoints, float radius = 0.5);
+int createCircle(int nPoints, float radius = 100);
 
 // Dimensões da janela (pode ser alterado em tempo de execução)
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -83,7 +83,7 @@ int main()
 	#endif
 
 	// Criação da janela GLFW
-	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Ex2 -- João Accorsi", nullptr, nullptr);
+	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Ex3 -- João Accorsi", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
 	// Fazendo o registro da função de callback para a janela GLFW
@@ -220,16 +220,18 @@ int createCircle (int nPoints, float radius){
     // em cada iteração, quanto que vai se somar ao ângulo para o novo cálculo
     float slice = 2 * M_PI / (float)nPoints;
 
+    // 2. Agora modifique para: xmin=0, xmax=800, ymin=600, ymax=0. 
+
     // Adicionar o ponto da origem (0,0,0) como sendo o centro do círculo
-    vertices.push_back(0.0); // X
-    vertices.push_back(0.0); // Y
+    vertices.push_back(400.0); // X
+    vertices.push_back(300.0); // Y
     vertices.push_back(0.0); // Z
     
     // Calculo de x e y, e adiciona do array de pontos
     for (int i = 0; i <= nPoints; i ++){
 
-        float x = radius * cos(angle);
-        float y = radius * sin(angle);
+        float x = 400.00 + radius * cos(angle);
+        float y = 300.00 + radius * sin(angle);
         float z = 0.0;
 
         vertices.push_back(x);
