@@ -22,5 +22,5 @@ glViewport(0, 0, width / 2, height / 2);  <br><br>
 glViewport(width / 2, 0, width / 2, height / 2);  <br><br>
 glViewport(0, height / 2, width / 2, height / 2);  <br><br>
 glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f); <br><br>
-
+```
 ![Ex5](image-5.png)
