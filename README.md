@@ -1,18 +1,35 @@
-# Graphic-Processing
+# Graphic-Computing
 
 > Developed for the Bachelor's Degree in Computer Science:
 > - University: Universidade do Vale do Rio dos Sinos (Unisinos)
-> - Subject: Graphic Processing
-> - Semester: 2024/02
+> - Subject: Graphic Computing
+> - Semester: 2026/01
 
 # Objective
 
-This repository aims to share the projects developed under Graphic Processing Class build in C++.
+This repository contains the projects developed during the **Graphic Computing** course. All projects are implemented in **C++ using OpenGL**, focusing on the fundamentals of computer graphics such as 2D/3D rendering, transformations, and camera manipulation.
 
-## List 1
+## 1. Triangle
+Initial implementation of a **2D triangle** rendered using OpenGL. This project introduces the graphics pipeline and basic rendering setup.
 
-The implementations together with the awnser to the exercices can be found in [./List1/answers.md](./List1/answers.md).
+## 2. Hello3D and HelloCamera
+This project introduces **3D rendering** with a traingle, and demonstrates the use of 3D transformations and basic camera concepts. It has the below features:
 
-## List 2
+- Keyboard controls for rotation:
+  - **X** → rotate around X axis  
+  - **Y** → rotate around Y axis  
+  - **Z** → rotate around Z axis  
 
-The implementations together with the awnser to the exercices can be found in [./List2/answers.md](./List2/answers.md).
+
+## 3. HelloSinteticCamera
+Extends the previous project by adding **camera movement and depth control**, with the following features:
+- 3D triangle rendered in space
+- Rotation using:
+  - **X / Y / Z** → rotate the object around the mentioned axis  
+- Depth movement:
+  - **W / A / S / D** → move the object closer/farther from the camera
+
+This project demonstrates:
+- Model transformations  
+- Camera positioning  
+- 3D navigation concepts 
