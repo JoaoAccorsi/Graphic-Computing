@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/joaoaccorsi/Desktop/Atividades",
-      "program": "/Users/joaoaccorsi/Desktop/Atividades/build/Debug/outDebug"
+      "cwd": "/Users/joaoaccorsi/Desktop/Graphic-Computing",
+      "program": "/Users/joaoaccorsi/Desktop/Graphic-Computing/build/Debug/outDebug"
     }
   ]
 }

@@ -7,16 +7,15 @@
 			"command": "/usr/bin/clang++",
 			"args": [
 				"-std=c++17",
+				"-g",
 				"-fcolor-diagnostics",
 				"-fansi-escape-codes",
 				"-Wall",
-				"-g",
 				"-I${workspaceFolder}/dependencies/include",
-				"-I${workspaceFolder}/dependencies/include/glm",
 				"-L${workspaceFolder}/dependencies/library",
-				"${workspaceFolder}/dependencies/library/libglfw.3.4.dylib",
-				"${file}",
+				"${workspaceFolder}/*.cpp",
 				"${workspaceFolder}/glad.c",
+				"${workspaceFolder}/dependencies/library/libglfw.3.4.dylib", 
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
 				"-framework",
@@ -42,16 +41,6 @@
 				"isDefault": true
 			},
 			"detail": "compiler: /usr/bin/clang++"
-		},
-		{
-			"label": "Run App",
-			"type": "shell",
-			"args": [
-				"./${fileDirname}/${fileBasenameNoExtension}"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
 		}
 	]
 }
