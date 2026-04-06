@@ -1,11 +1,11 @@
 Compile:
 clang++ triangle.cpp glad.c -Idependencies/include -I/opt/homebrew/include -L/opt/homebrew/lib -lglfw -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -o triangle
 
-clang++ HelloSinteticCamera.cpp Camera.cpp glad.c \
+clang++ ObjectExercise.cpp Camera.cpp glad.c \
 -Idependencies/include -I/opt/homebrew/include \
 -L/opt/homebrew/lib -lglfw \
 -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo \
--o HelloSinteticCamera
+-o ObjectExercise
 
 Run:
 ./triangle

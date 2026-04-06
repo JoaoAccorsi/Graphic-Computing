@@ -33,3 +33,10 @@ This project demonstrates:
 - Model transformations  
 - Camera positioning  
 - 3D navigation concepts 
+
+## 4. ObjectExercise
+This program builds a simple **scene manager** capable of loading, storing, rendering and selecting multiple objects. Features:
+ - **W / A / S / D** → move the object closer/farther from the camera
+- **X / Y / Z** → rotate the object around the mentioned axis  
+- **ESC** → change the selected object
+
