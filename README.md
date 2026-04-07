@@ -9,6 +9,9 @@
 
 This repository contains the projects developed during the **Graphic Computing** course. All projects are implemented in **C++ using OpenGL**, focusing on the fundamentals of computer graphics such as 2D/3D rendering, transformations, and camera manipulation.
 
+# How to Run
+Refer to file /how-to-run.txt
+
 ## 1. Triangle
 Initial implementation of a **2D triangle** rendered using OpenGL. This project introduces the graphics pipeline and basic rendering setup.
 
