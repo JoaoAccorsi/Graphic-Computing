@@ -38,5 +38,5 @@ This project demonstrates:
 This program builds a simple **scene manager** capable of loading, storing, rendering and selecting multiple objects. Features:
  - **W / A / S / D** → move the object closer/farther from the camera
 - **X / Y / Z** → rotate the object around the mentioned axis  
-- **ESC** → change the selected object
+- **TAB** → change the selected object
 
