@@ -19,27 +19,31 @@ Initial implementation of a **2D triangle** rendered using OpenGL. This project 
 This project introduces **3D rendering** with a traingle, and demonstrates the use of 3D transformations and basic camera concepts. It has the below features:
 
 - Keyboard controls for rotation:
-  - **X** → rotate around X axis  
-  - **Y** → rotate around Y axis  
-  - **Z** → rotate around Z axis  
-
+  - **X** → Rotate around X axis  
+  - **Y** → Rotate around Y axis  
+  - **Z** → Rotate around Z axis  
 
 ## 3. HelloSinteticCamera
 Extends the previous project by adding **camera movement and depth control**, with the following features:
 - 3D triangle rendered in space
 - Rotation using:
-  - **X / Y / Z** → rotate the object around the mentioned axis  
+  - **X / Y / Z** → Rotate the object around the mentioned axis  
 - Depth movement:
-  - **W / A / S / D** → move the object closer/farther from the camera
-
-This project demonstrates:
-- Model transformations  
-- Camera positioning  
-- 3D navigation concepts 
+  - **W / A / S / D** → Move the object closer/farther from the camera
 
 ## 4. ObjectExercise
 This program builds a simple **scene manager** capable of loading, storing, rendering and selecting multiple objects. Features:
- - **W / A / S / D** → move the object closer/farther from the camera
-- **X / Y / Z** → rotate the object around the mentioned axis  
-- **TAB** → change the selected object
+ - **W / A / S / D** → Move the object closer/farther from the camera
+- **X / Y / Z** → Rotate the object around the mentioned axis  
+- **TAB** → Change the selected object
 
+## 5. ReaderViewer3D
+Enhance ObjectExercise to support interactive 3D transformations on multiple objects in the scene.
+Features:
+ - **1 / 2 / 3** → Change the mode (1) Translation (2) Translation (3) Scale
+- **W/S or ↑/↓** → Rotate the object around the Y axis
+- **A/D or ←/→** → Rotate the object around the X axis
+- **A/D or ←/→** → Rotate the object around the Z axis
+- **+/-** → Uniform scale (mode 3)
+- **P** → Perspective / orthographic
+- **TAB** → Change the selected object
