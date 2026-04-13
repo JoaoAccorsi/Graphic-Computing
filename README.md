@@ -43,7 +43,7 @@ Features:
  - **1 / 2 / 3** → Change the mode (1) Translation (2) Translation (3) Scale
 - **W/S or ↑/↓** → Rotate the object around the Y axis
 - **A/D or ←/→** → Rotate the object around the X axis
-- **A/D or ←/→** → Rotate the object around the Z axis
+- **Q / E** → Rotate the object around the Z axis
 - **+/-** → Uniform scale (mode 3)
 - **P** → Perspective / orthographic
 - **TAB** → Change the selected object
