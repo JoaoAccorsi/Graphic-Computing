@@ -32,7 +32,7 @@ public:
     // Retorna a matriz de View calculada
     glm::mat4 getViewMatrix();
 
-    // Processa entrada de teclado (WASD)
+    // Processa entrada de teclado (WASD; UP/DOWN = eixo worldUp)
     void processKeyboard(const std::string& direction, float deltaTime);
 
     // Processa movimento do mouse (Pitch/Yaw)

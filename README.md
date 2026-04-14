@@ -1,49 +1,51 @@
 # Graphic-Computing
 
-> Developed for the Bachelor's Degree in Computer Science:
-> - University: Universidade do Vale do Rio dos Sinos (Unisinos)
-> - Subject: Graphic Computing
-> - Semester: 2026/01
+Trabalhos da disciplina **Computação Gráfica** (Unisinos, 2026/01), em **C++ / OpenGL** (GLFW, GLAD, GLM).
 
-# Objective
+## Como compilar e executar
 
-This repository contains the projects developed during the **Graphic Computing** course. All projects are implemented in **C++ using OpenGL**, focusing on the fundamentals of computer graphics such as 2D/3D rendering, transformations, and camera manipulation.
+Instruções de linha de comando: [how-to-run.txt](how-to-run.txt).
 
-# How to Run
-Refer to file /how-to-run.txt
+## Projetos no repositório
 
-## 1. Triangle
-Initial implementation of a **2D triangle** rendered using OpenGL. This project introduces the graphics pipeline and basic rendering setup.
+### 1. Triangle
 
-## 2. Hello3D and HelloCamera
-This project introduces **3D rendering** with a traingle, and demonstrates the use of 3D transformations and basic camera concepts. It has the below features:
+Triângulo 2D e introdução ao pipeline.
 
-- Keyboard controls for rotation:
-  - **X** → Rotate around X axis  
-  - **Y** → Rotate around Y axis  
-  - **Z** → Rotate around Z axis  
+### 2. Hello3D e HelloCamera
 
-## 3. HelloSinteticCamera
-Extends the previous project by adding **camera movement and depth control**, with the following features:
-- 3D triangle rendered in space
-- Rotation using:
-  - **X / Y / Z** → Rotate the object around the mentioned axis  
-- Depth movement:
-  - **W / A / S / D** → Move the object closer/farther from the camera
+Triângulo 3D, transformações e noções de câmera.
 
-## 4. ObjectExercise
-This program builds a simple **scene manager** capable of loading, storing, rendering and selecting multiple objects. Features:
- - **W / A / S / D** → Move the object closer/farther from the camera
-- **X / Y / Z** → Rotate the object around the mentioned axis  
-- **TAB** → Change the selected object
+### 3. HelloSinteticCamera
 
-## 5. ReaderViewer3D
-Enhance ObjectExercise to support interactive 3D transformations on multiple objects in the scene.
-Features:
- - **1 / 2 / 3** → Change the mode (1) Translation (2) Translation (3) Scale
-- **W/S or ↑/↓** → Rotate the object around the Y axis
-- **A/D or ←/→** → Rotate the object around the X axis
-- **Q / E** → Rotate the object around the Z axis
-- **+/-** → Uniform scale (mode 3)
-- **P** → Perspective / orthographic
-- **TAB** → Change the selected object
+Profundidade e movimento de objeto com teclado.
+
+### 4. ObjectExercise
+
+Cena simples com **dois** `.obj`, seleção com TAB, rotação (X/Y/Z) e translação (WASD) no objeto selecionado, troca perspectiva/ortográfica (P). Cores por vértice (sem Phong). Serve como base didática menor.
+
+### 5. ReaderViewer3D (entrega principal — Etapa 1)
+
+Visualizador com:
+
+| Requisito | Implementação |
+|-----------|----------------|
+| Parser `.obj` | Próprio: lê `v`, `vn`, `vt`, faces triangulares ou polígonos triangulados em leque; índices `v/vt/vn` e índices negativos |
+| Atributos na GPU | VAO + VBO: posição (0), normal (1), UV (2) |
+| Vários objetos | Quatro modelos em grade; **TAB** alterna seleção |
+| Transformações | **1** rotação, **2** translação, **3** escala (por eixo + **+/-** uniforme) |
+| Câmera FPS | **C** alterna modo câmera / objeto: WASD, **Space** / **Shift** (vertical), **mouse** |
+| Projeção | **P** perspectiva ↔ ortográfica |
+| Phong | Ambiente + difusa + especular nos shaders; luz pontual |
+| Luz | Posição ajustável: segure **L** e use **WASD** + **Q/E** (eixo Z) |
+| Material (ka, kd, ks) | Objeto selecionado: **`[` `]`** shininess; **R/T** ka; **Y/U** kd; **Z/X** ks |
+| Wireframe sobreposto | **O** liga/desliga |
+| Extras | **G** grid no chão + eixos RGB |
+
+Controles completos são impressos no terminal ao iniciar o programa.
+
+**Nota:** não há `.ply` nem Assimp no momento; o enunciado aceita **uma** das opções (parser próprio em `.obj` atende).
+
+## Objetivo da disciplina (contexto)
+
+Fundamentos de computação gráfica: renderização 2D/3D, transformações, câmera, iluminação e pipeline programável.
