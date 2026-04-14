@@ -22,10 +22,23 @@ void Camera::processKeyboard(const std::string &direction, float deltaTime)
     if (direction == "BACKWARD") { position -= front * velocity;}
     if (direction == "LEFT") { position -= right * velocity;}
     if (direction == "RIGHT") { position += right * velocity;}
+    if (direction == "UP") { position += worldUp * velocity;}
+    if (direction == "DOWN") { position -= worldUp * velocity;}
 }
 
 void Camera::processMouseMovement(float xoffset, float yoffset, bool constrainPitch)
 {
+    xoffset *= mouseSensitivity;
+    yoffset *= mouseSensitivity;
+
+    yaw += xoffset;
+    pitch += yoffset;
+
+    if (constrainPitch) {
+        if (pitch > 89.0f) pitch = 89.0f;
+        if (pitch < -89.0f) pitch = -89.0f;
+    }
+    updateCameraVectors();
 }
 
 void Camera::updateCameraVectors()

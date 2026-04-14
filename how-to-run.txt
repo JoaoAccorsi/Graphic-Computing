@@ -1,12 +1,27 @@
-Compile:
-clang++ ObjectExercise.cpp Camera.cpp glad.c \
--Idependencies/include -I/opt/homebrew/include \
--L/opt/homebrew/lib -lglfw \
--framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo \
--o ObjectExercise
+Requisitos (macOS, Homebrew):
+  brew install glfw glm
 
-Run:
-./ObjectExercise
+Compilar ObjectExercise (exemplo introdutório):
+  clang++ ObjectExercise.cpp Camera.cpp glad.c \
+    -Idependencies/include -I/opt/homebrew/include \
+    -L/opt/homebrew/lib -lglfw \
+    -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo \
+    -o ObjectExercise
 
-Video:
-https://www.youtube.com/watch?v=7-dL6a5_B3I
+Executar:
+  ./ObjectExercise
+
+---
+
+Compilar ReaderViewer3D (entrega etapa 1 — parser OBJ, Phong, FPS, etc.):
+  clang++ -std=c++17 ReaderViewer3D.cpp Camera.cpp glad.c \
+    -Idependencies/include -I/opt/homebrew/include \
+    -L/opt/homebrew/lib -lglfw \
+    -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo \
+    -o ReaderViewer3D
+
+Executar (a partir da raiz do repositório, para achar assets/):
+  ./ReaderViewer3D
+
+Video (ObjectExercise):
+  https://www.youtube.com/watch?v=7-dL6a5_B3I
