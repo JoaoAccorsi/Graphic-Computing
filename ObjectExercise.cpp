@@ -14,7 +14,7 @@ using namespace std;
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
 
-const GLuint WIDTH = 600, HEIGHT = 600;
+const GLuint WIDTH = 1000, HEIGHT = 600;
 
 void processInput(GLFWwindow *window);
 
@@ -38,6 +38,7 @@ struct SceneObject {
     size_t vertexCount;
     glm::vec3 position;
     glm::vec3 rotation;
+    glm::vec3 scale;
 };
 
 SceneObject createObject(string path, glm::vec3 color, glm::vec3 pos);
@@ -74,7 +75,13 @@ const GLchar* fragmentShaderSource = R"glsl(
 #version 410 core
 in vec4 finalColor;
 out vec4 color;
-void main(){ color = finalColor; }
+uniform vec4 colorOverride;
+void main(){
+    if(colorOverride.a > 0.0)
+        color = vec4(colorOverride.rgb, 1.0);
+    else
+        color = finalColor;
+}
 )glsl";
 
 int main(){
@@ -82,6 +89,9 @@ int main(){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
     glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
+    #ifdef __APPLE__
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    #endif
 
     GLFWwindow* window = glfwCreateWindow(WIDTH,HEIGHT,"Object Exercise",NULL,NULL);
     glfwMakeContextCurrent(window);
@@ -136,15 +146,26 @@ int main(){
             model = glm::rotate(model, glm::radians(scene[i].rotation.y), glm::vec3(0,1,0));
             model = glm::rotate(model, glm::radians(scene[i].rotation.z), glm::vec3(0,0,1));
 
-            // Set in the screen the selected object
-            if(i == selectedObject)
-                model = glm::scale(model, glm::vec3(1.2f));
+            // Scale
+            model = glm::scale(model, scene[i].scale);
 
             GLuint modelLoc = glGetUniformLocation(shaderID,"model");
             glUniformMatrix4fv(modelLoc,1,GL_FALSE,glm::value_ptr(model));
 
+            // Draw solid
             glBindVertexArray(scene[i].VAO);
             glDrawArrays(GL_TRIANGLES, 0, scene[i].vertexCount);
+
+            // Draw wireframe overlay on selected object
+            if(i == selectedObject) {
+                GLuint colorOverrideLoc = glGetUniformLocation(shaderID,"colorOverride");
+                glUniform4f(colorOverrideLoc, 1.0f, 1.0f, 1.0f, 1.0f);
+                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+                glLineWidth(1.0f);
+                glDrawArrays(GL_TRIANGLES, 0, scene[i].vertexCount);
+                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                glUniform4f(colorOverrideLoc, 0.0f, 0.0f, 0.0f, 0.0f);
+            }
         }
 
         glfwSwapBuffers(window);
@@ -172,15 +193,20 @@ vector<VertexData> loadOBJ(string path, glm::vec3 color){
         }
 
         if(type=="f"){
-            for(int i=0;i<3;i++){
-                string vert; ss>>vert;
+            vector<int> faceIndices;
+            string vert;
+            while(ss >> vert){
                 int index = stoi(vert.substr(0,vert.find('/'))) - 1;
-                glm::vec3 pos = temp_vertices[index];
-
-                vertices.push_back({
-                    pos.x,pos.y,pos.z,
-                    color.r,color.g,color.b
-                });
+                faceIndices.push_back(index);
+            }
+            // Fan triangulation: supports triangles, quads, and n-gons
+            for(int i=1;i+1<(int)faceIndices.size();i++){
+                glm::vec3 p0 = temp_vertices[faceIndices[0]];
+                glm::vec3 p1 = temp_vertices[faceIndices[i]];
+                glm::vec3 p2 = temp_vertices[faceIndices[i+1]];
+                vertices.push_back({p0.x,p0.y,p0.z, color.r,color.g,color.b});
+                vertices.push_back({p1.x,p1.y,p1.z, color.r,color.g,color.b});
+                vertices.push_back({p2.x,p2.y,p2.z, color.r,color.g,color.b});
             }
         }
     }
@@ -190,11 +216,19 @@ vector<VertexData> loadOBJ(string path, glm::vec3 color){
 int setupGeometry(){
     scene.push_back(createObject("assets/suzanne.obj",
                                  glm::vec3(1,1,0),       // yellow
-                                 glm::vec3(1.5,0,0)));   // rigth
+                                 glm::vec3(-3.0,0,0)));
 
     scene.push_back(createObject("assets/airplane.obj",
                                  glm::vec3(0,0.3,1),     // blue
-                                 glm::vec3(-1.5,0,0)));  // left
+                                 glm::vec3(-1.0,0,0)));
+
+    scene.push_back(createObject("assets/cube.obj",
+                                 glm::vec3(1,0.2,0.2),   // red
+                                 glm::vec3(1.0,0,0)));
+
+    scene.push_back(createObject("assets/robot.obj",
+                                 glm::vec3(0.2,1,0.2),   // green
+                                 glm::vec3(3.0,0,0)));
     return 0;
 }
 
@@ -248,6 +282,7 @@ SceneObject createObject(string path, glm::vec3 color, glm::vec3 pos){
     obj.vertexCount = vertices.size();
     obj.position = pos;
     obj.rotation = glm::vec3(0.0f);
+    obj.scale = glm::vec3(1.0f);
     return obj;
 }
 
@@ -284,7 +319,7 @@ void processInput(GLFWwindow *window){
     if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
         obj.rotation.z += rotSpeed;
 
-    // W A S D for Translation
+    // W A S D for Translation on X and Z
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         obj.position.z += speed;
 
@@ -296,4 +331,32 @@ void processInput(GLFWwindow *window){
 
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         obj.position.x += speed;
+
+    // Q E for Translation on Y axis
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+        obj.position.y -= speed;
+
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+        obj.position.y += speed;
+
+    // Scale: + / - for uniform scale, 1-6 for per-axis
+    float scaleSpeed = 1.0f * deltaTime;
+
+    if (glfwGetKey(window, GLFW_KEY_KP_ADD) == GLFW_PRESS ||
+        glfwGetKey(window, GLFW_KEY_EQUAL) == GLFW_PRESS)
+        obj.scale += glm::vec3(scaleSpeed);
+
+    if (glfwGetKey(window, GLFW_KEY_KP_SUBTRACT) == GLFW_PRESS ||
+        glfwGetKey(window, GLFW_KEY_MINUS) == GLFW_PRESS) {
+        obj.scale -= glm::vec3(scaleSpeed);
+        obj.scale = glm::max(obj.scale, glm::vec3(0.1f));
+    }
+
+    // 1/2 = scale X, 3/4 = scale Y, 5/6 = scale Z
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) obj.scale.x += scaleSpeed;
+    if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) obj.scale.x = glm::max(0.1f, obj.scale.x - scaleSpeed);
+    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) obj.scale.y += scaleSpeed;
+    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) obj.scale.y = glm::max(0.1f, obj.scale.y - scaleSpeed);
+    if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) obj.scale.z += scaleSpeed;
+    if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS) obj.scale.z = glm::max(0.1f, obj.scale.z - scaleSpeed);
 }
