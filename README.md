@@ -4,7 +4,18 @@ Trabalhos da disciplina **Computação Gráfica** (Unisinos, 2026/01), em **C++ 
 
 ## Como compilar e executar
 
-Instruções de linha de comando: [how-to-run.txt](how-to-run.txt).
+Instruções completas: [how-to-run.txt](how-to-run.txt).
+
+Exemplo rápido (ObjectExercise):
+```bash
+clang++ ObjectExercise.cpp Camera.cpp glad.c \
+    -Idependencies/include -I/opt/homebrew/include \
+    -Ldependencies/library -lglfw.3.4 \
+    -rpath @executable_path/dependencies/library \
+    -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo \
+    -o ObjectExercise
+./ObjectExercise
+```
 
 ## Projetos no repositório
 
@@ -22,7 +33,24 @@ Profundidade e movimento de objeto com teclado.
 
 ### 4. ObjectExercise
 
-Cena simples com **dois** `.obj`, seleção com TAB, rotação (X/Y/Z) e translação (WASD) no objeto selecionado, troca perspectiva/ortográfica (P). Cores por vértice (sem Phong). Serve como base didática menor.
+Cena com **quatro** modelos `.obj` (Suzanne, Airplane, Cube, Robot), seleção cíclica, transformações interativas (rotação, translação e escala) e wireframe sobreposto no objeto selecionado. Leitor OBJ, e cores por vértice.
+
+| Comando | Ação |
+|---------|------|
+| **TAB** | Selecionar próximo objeto (cíclico) |
+| **X / Y / Z** | Rotacionar no eixo X / Y / Z|
+| **W** | Transladar para frente (eixo Z+) |
+| **S** | Transladar para trás (eixo Z-) |
+| **A** | Transladar para esquerda (eixo X-) |
+| **D** | Transladar para direita (eixo X+) |
+| **Q** | Transladar para baixo (eixo Y-) |
+| **E** | Transladar para cima (eixo Y+) |
+| **+** / **-** | Escala uniforme (todos os eixos) |
+| **1** / **2** | Aumentar / diminuir escala no eixo X |
+| **3** / **4** | Aumentar / diminuir escala no eixo Y |
+| **5** / **6** | Aumentar / diminuir escala no eixo Z |
+| **P** | Alternar perspectiva / ortográfica |
+| **ESC** | Fechar a janela |
 
 ### 5. ReaderViewer3D (entrega principal — Etapa 1)
 
@@ -45,7 +73,3 @@ Visualizador com:
 Controles completos são impressos no terminal ao iniciar o programa.
 
 **Nota:** não há `.ply` nem Assimp no momento; o enunciado aceita **uma** das opções (parser próprio em `.obj` atende).
-
-## Objetivo da disciplina (contexto)
-
-Fundamentos de computação gráfica: renderização 2D/3D, transformações, câmera, iluminação e pipeline programável.

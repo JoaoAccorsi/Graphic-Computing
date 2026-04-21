@@ -1,12 +1,17 @@
 Requisitos (macOS, Homebrew):
   brew install glfw glm
 
-Compilar ObjectExercise (exemplo introdutório):
+Compilar ObjectExercise:
   clang++ ObjectExercise.cpp Camera.cpp glad.c \
     -Idependencies/include -I/opt/homebrew/include \
-    -L/opt/homebrew/lib -lglfw \
+    -Ldependencies/library -lglfw.3.4 \
+    -rpath @executable_path/dependencies/library \
     -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo \
     -o ObjectExercise
+
+Corrigir dylib path (se necessário):
+  install_name_tool -change /opt/homebrew/opt/glfw/lib/libglfw.3.dylib \
+    @executable_path/dependencies/library/libglfw.3.4.dylib ObjectExercise
 
 Executar:
   ./ObjectExercise
